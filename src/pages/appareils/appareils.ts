@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ModalController, NavController } from 'ionic-angular';
 import { Appareil } from '../../models/Appareil';
 import { AppareilsService } from '../../services/appareils.service';
+import { AppareilFormPage } from './appareil-form/appareil-form';
 import { SingleAppareilPage } from './single-appareil/single-appareil';
 
 @Component({
@@ -12,14 +13,17 @@ export class AppareilsPage {
   appareilsList: Appareil[];
 
   constructor(private modalCtrl: ModalController,
-              private appareilsService: AppareilsService) {}
+    private appareilsService: AppareilsService, private navCtrl: NavController) { }
 
   ionViewWillEnter() {
     this.appareilsList = this.appareilsService.appareilsList.slice();
   }
 
   onLoadAppareil(index: number) {
-    let modal = this.modalCtrl.create(SingleAppareilPage, {index: index});
+    let modal = this.modalCtrl.create(SingleAppareilPage, { index: index });
     modal.present();
+  }
+  onNewAppareil() {
+    this.navCtrl.push(AppareilFormPage);
   }
 }

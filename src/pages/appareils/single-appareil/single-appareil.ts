@@ -1,5 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ViewController } from 'ionic-angular';
 import { NavController, NavParams } from 'ionic-angular';
 import { Appareil } from '../../../models/Appareil';
@@ -27,8 +28,19 @@ export class SingleAppareilPage implements OnInit {
     this.viewCtrl.dismiss();
   }
 
-  onToggleAppareil(){
+  onToggleAppareil() {
     this.appareil.isOn = !this.appareil.isOn;
+  }
+  
+  onSubmitForm(form: NgForm) {
+    console.log(form.value);
+    this.dismissModal();
+  }
+
+  onDeleteHours() {
+    this.appareil.startTime = '';
+    this.appareil.endTime = '';
+    this.dismissModal();
   }
 
 }
